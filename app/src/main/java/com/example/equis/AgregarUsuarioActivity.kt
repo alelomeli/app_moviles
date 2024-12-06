@@ -22,7 +22,6 @@ class AgregarUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_usuario)
 
-        // Inicialización de los elementos del formulario
         editTextNombre = findViewById(R.id.editTxtNombre)
         editTextTelefono = findViewById(R.id.editTxtTelefono)
         editTextCorreo = findViewById(R.id.editTxtEmail)
@@ -31,46 +30,43 @@ class AgregarUsuarioActivity : AppCompatActivity() {
         switchAdmin = findViewById(R.id.switchAdmin)
         buttonRegistrar = findViewById(R.id.buttonRegistrar)
 
-        // Evitar que ambos switches se activen al mismo tiempo
         switchCliente.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                switchAdmin.isChecked = false
-            }
+            if (isChecked) switchAdmin.isChecked = false
         }
 
         switchAdmin.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                switchCliente.isChecked = false
-            }
+            if (isChecked) switchCliente.isChecked = false
         }
 
-        // Acción al hacer clic en el botón de registrar
         buttonRegistrar.setOnClickListener {
-            val nombre = editTextNombre.text.toString()
-            val telefono = editTextTelefono.text.toString()
-            val correo = editTextCorreo.text.toString()
-            val contrasena = editTxtContrasena.text.toString()
+            val nombre = editTextNombre.text.toString().trim()
+            val telefono = editTextTelefono.text.toString().trim()
+            val correo = editTextCorreo.text.toString().trim()
+            val contrasena = editTxtContrasena.text.toString().trim()
             val tipoUsuario = if (switchCliente.isChecked) "cliente" else "administrador"
 
-            // Validación de los campos
             if (nombre.isEmpty() || telefono.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                // Guardamos los datos en SharedPreferences
-                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("username", nombre)
-                editor.putString("telefono", telefono)
-                editor.putString("correo", correo)
-                editor.putString("userType", tipoUsuario)
-                editor.putString("password", contrasena) // Guardar la contraseña
-                editor.apply()
+                // Crear el nuevo usuario
+                val newUser = mapOf(
+                    "username" to nombre,
+                    "password" to contrasena,
+                    "userType" to tipoUsuario,
+                    "telefono" to telefono,
+                    "correo" to correo
+                )
 
-                // Redirigir a la pantalla principal
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                // Guardar el usuario en la lista de LoginActivity
+                LoginActivity.userList.add(newUser)
+
+                // Mostrar mensaje de éxito
+                Toast.makeText(this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show()
+
+                // Volver al menú principal
                 finish()
             }
         }
+
     }
 }

@@ -12,73 +12,58 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
 
-    // Definición de usuarios y contraseñas predefinidos
-    private val users = mapOf(
-        "admin" to "123", // Usuario admin
-        "cliente" to "123"  // Usuario cliente
-    )
+    // Lista mutable para almacenar usuarios registrados en la ejecución actual
+    companion object {
+        val userList = mutableListOf<Map<String, String>>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicialización de los campos
         usernameEditText = findViewById(R.id.edtUsuario)
         passwordEditText = findViewById(R.id.edtPassword)
         loginButton = findViewById(R.id.btnLogin)
 
-        // Acción de login
+        // Usuarios iniciales
+        if (userList.isEmpty()) {
+            userList.add(
+                mapOf("username" to "admin", "password" to "123", "userType" to "admin", "telefono" to "N/A", "correo" to "N/A")
+            )
+            userList.add(
+                mapOf("username" to "cliente", "password" to "123", "userType" to "cliente", "telefono" to "N/A", "correo" to "N/A")
+            )
+        }
+
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
-            // Validación de los campos
-            if (validateInput(username, password)) {
-                performLogin(username, password)
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+            } else {
+                val user = userList.find { it["username"] == username && it["password"] == password }
+                if (user != null) {
+                    saveUserDetails(user)
+                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    navigateToMain()
+                } else {
+                    Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    // Validación de entrada
-    private fun validateInput(username: String, password: String): Boolean {
-        if (username.isEmpty()) {
-            usernameEditText.error = "El usuario es obligatorio"
-            return false
-        }
-        if (password.isEmpty()) {
-            passwordEditText.error = "La contraseña es obligatoria"
-            return false
-        }
-        return true
-    }
-
-    // Realizar el login
-    private fun performLogin(username: String, password: String) {
-        // Verificar si el usuario y la contraseña coinciden
-        if (users[username] == password) {
-            saveUserDetails(username)
-            Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-            navigateToMain()
-        } else {
-            Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    // Guardar los detalles del usuario en SharedPreferences
-    private fun saveUserDetails(username: String) {
-        val userType = if (username == "admin") "admin" else "cliente"
+    private fun saveUserDetails(user: Map<String, String>) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("username", username)
-        editor.putString("userType", userType)
+        editor.putString("username", user["username"])
+        editor.putString("userType", user["userType"])
         editor.apply()
     }
 
-    // Navegar a la actividad principal
     private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 }
-
