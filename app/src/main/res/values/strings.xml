@@ -13,4 +13,13 @@
     <string name="menu_slideshow">Suplementos</string>
     <string name="menu_accesorios">Accesorios</string>
     <string name="title_activity_perfikl">PerfiklActivity</string>
+    <string name="txtbanda">Bandas elásticas. Herramienta versátil para entrenamientos de resistencia. Ideales para tonificar músculos, mejorar flexibilidad y rehabilitación.</string>
+    <string name="txtcuerda"> Cuerda de Saltar. Accesorio esencial para entrenamientos cardiovasculares. Perfecta para mejorar la coordinación, quemar calorías y fortalecer piernas.</string>
+    <string name="txtguantes">Guantes. Diseñados para proteger tus manos durante levantamientos de peso y ejercicios de alta intensidad.</string>
+    <string name="txtmochila">Mochila. Espaciosa y resistente, ideal para transportar tu equipo deportivo. Cuenta con múltiples compartimentos para mantener todo organizado, desde ropa hasta accesorios.</string>
+    <string name="txtrueda">Rueda para abdominales. Herramienta efectiva para fortalecer el núcleo, mejorar la postura y tonificar abdominales. </string>
+    <string name="txtshaker">Shaker. Botella mezcladora para preparar y transportar tus batidos de proteínas o suplementos. Diseñada con un sistema anti-fugas.</string>
+    <string name="txtstraps">Straps. Correas de levantamiento que mejoran el agarre durante entrenamientos con pesas. Ayudan a reducir la tensión en las manos y aumentar el rendimiento en ejercicios de tracción.</string>
+    <string name="txttapete">Tapete. Superficie acolchada y antideslizante para realizar ejercicios de yoga, pilates o estiramientos.</string>
+    <string name="txttobilleras">Tobilleras con peso. Accesorio ideal para añadir resistencia a tus entrenamientos. Fortalece piernas y glúteos mientras caminas, corres o realizas ejercicios específicos.</string>
 </resources>
