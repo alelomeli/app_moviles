@@ -3,7 +3,6 @@ package com.example.equis
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,7 +11,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
-    private lateinit var progressBar: ProgressBar
 
     // Definición de usuarios y contraseñas predefinidos
     private val users = mapOf(
@@ -28,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.edtUsuario)
         passwordEditText = findViewById(R.id.edtPassword)
         loginButton = findViewById(R.id.btnLogin)
-        progressBar = findViewById(R.id.progressBar)
 
         // Acción de login
         loginButton.setOnClickListener {
@@ -37,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
 
             // Validación de los campos
             if (validateInput(username, password)) {
-                showProgressBar()
                 performLogin(username, password)
             }
         }
@@ -56,32 +52,16 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
-    // Mostrar el ProgressBar
-    private fun showProgressBar() {
-        progressBar.visibility = ProgressBar.VISIBLE
-        loginButton.isEnabled = false
-    }
-
-    // Ocultar el ProgressBar
-    private fun hideProgressBar() {
-        progressBar.visibility = ProgressBar.GONE
-        loginButton.isEnabled = true
-    }
-
     // Realizar el login
     private fun performLogin(username: String, password: String) {
-        Handler().postDelayed({
-            hideProgressBar()
-
-            // Verificar si el usuario y la contraseña coinciden
-            if (users[username] == password) {
-                saveUserDetails(username)
-                Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                navigateToMain()
-            } else {
-                Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-            }
-        }, 1000)
+        // Verificar si el usuario y la contraseña coinciden
+        if (users[username] == password) {
+            saveUserDetails(username)
+            Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+            navigateToMain()
+        } else {
+            Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+        }
     }
 
     // Guardar los detalles del usuario en SharedPreferences
