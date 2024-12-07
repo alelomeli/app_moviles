@@ -7,13 +7,13 @@
 
     <TextView
         android:id="@+id/txtUsuario"
-        android:layout_width="71dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_width="89dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="serif"
         android:text="Usuario"
         android:textAlignment="center"
-        android:textColor="#09DFFC"
+        android:textColor="@color/design_default_color_primary_variant"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +33,11 @@
         android:id="@+id/btnAgregarUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="624dp"
+        android:layout_marginTop="544dp"
         android:backgroundTint="#4E148C"
         android:text="Añadir Usuario"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +46,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="serif"
         android:text="Número"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUsuario" />
@@ -55,8 +58,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:fontFamily="serif"
         android:text="email"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNumTelefonico" />
+
+    <TextView
+        android:id="@+id/txtMembresia"
+        android:layout_width="96dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="164dp"
+        android:fontFamily="serif"
+        android:text="Membresía"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNumTelefonico" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,7 +45,6 @@ class PerfilFragment : Fragment() {
             btnAgregarUsuario.visibility = View.GONE
         } else {
             btnAgregarUsuario.setOnClickListener {
-                // Al hacer clic en el botón, abrir la actividad AgregarUsuarioActivity
                 val intent = Intent(requireContext(), AgregarUsuarioActivity::class.java)
                 startActivity(intent)
             }

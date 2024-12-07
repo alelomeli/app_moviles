@@ -56,10 +56,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveUserDetails(user: Map<String, String>) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("username", user["username"])
-        editor.putString("userType", user["userType"])
-        editor.apply()
+        with(sharedPreferences.edit()) {
+            putString("username", user["username"])
+            putString("userType", user["userType"])
+            putString("telefono", user["telefono"])
+            putString("correo", user["correo"])
+            apply()
+        }
     }
 
     private fun navigateToMain() {
