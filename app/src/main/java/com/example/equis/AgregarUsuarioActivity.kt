@@ -60,6 +60,16 @@ class AgregarUsuarioActivity : AppCompatActivity() {
                 // Guardar el usuario en la lista de LoginActivity
                 LoginActivity.userList.add(newUser)
 
+                // Guardar los datos en SharedPreferences
+                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("username", nombre)
+                    putString("telefono", telefono)
+                    putString("correo", correo)
+                    putString("userType", tipoUsuario)
+                    apply()
+                }
+
                 // Mostrar mensaje de éxito
                 Toast.makeText(this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show()
 
@@ -67,6 +77,5 @@ class AgregarUsuarioActivity : AppCompatActivity() {
                 finish()
             }
         }
-
     }
 }
