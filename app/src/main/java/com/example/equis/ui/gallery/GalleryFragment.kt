@@ -41,7 +41,9 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setupButtonListeners() {
-        binding.btnyoga.setOnClickListener { registerClass("Yoga") }
+        binding.btnyoga.setOnClickListener {
+            registerClass("Yoga")
+        }
         binding.buttonSpinning.setOnClickListener { registerClass("Spinning") }
         binding.buttonPilates.setOnClickListener { registerClass("Pilates") }
         binding.buttonZumba.setOnClickListener { registerClass("Zumba") }

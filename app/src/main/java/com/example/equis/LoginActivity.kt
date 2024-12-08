@@ -1,18 +1,22 @@
 package com.example.equis
 
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
+
 class LoginActivity : AppCompatActivity() {
+
+    private var usuarios = ArrayList<Cliente>()
+    private val REGISTRAR_CODE = 1
 
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
 
-    // Lista mutable para almacenar usuarios registrados en la ejecución actual
     companion object {
         val userList = mutableListOf<Map<String, String>>()
     }
@@ -25,13 +29,17 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.edtPassword)
         loginButton = findViewById(R.id.btnLogin)
 
-        // Usuarios iniciales
+        intent.getParcelableArrayListExtra<Cliente>("list")?.let {
+            usuarios.addAll(it)
+        }
+
+
         if (userList.isEmpty()) {
             userList.add(
-                mapOf("username" to "admin", "password" to "123", "userType" to "admin", "telefono" to "N/A", "correo" to "N/A")
+                mapOf("username" to "admin", "password" to "123", "userType" to "admin", "telefono" to "1122334455", "correo" to "admin@onfit.mx", "plan" to "Admin")
             )
             userList.add(
-                mapOf("username" to "cliente", "password" to "123", "userType" to "cliente", "telefono" to "N/A", "correo" to "N/A")
+                mapOf("username" to "cliente", "password" to "123", "userType" to "cliente", "telefono" to "5544332211", "correo" to "cliente@gmail.com", "plan" to "N/A")
             )
         }
 
@@ -56,17 +64,31 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveUserDetails(user: Map<String, String>) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString("username", user["username"])
-            putString("userType", user["userType"])
-            putString("telefono", user["telefono"])
-            putString("correo", user["correo"])
-            apply()
-        }
+        val editor = sharedPreferences.edit()
+        editor.putString("username", user["username"])
+        editor.putString("userType", user["userType"])
+        editor.putString("telefono",user["telefono"])
+        editor.putString("correo",user["correo"])
+        editor.putString("plan",user["plan"])
+        editor.putString("plan",user["plan"])
+        editor.apply()
     }
 
     private fun navigateToMain() {
         startActivity(Intent(this, MainActivity::class.java))
+        //val intent = Intent(this,MainActivity::class.java)
+        //intent.putParcelableArrayListExtra("list", usuarios)
+        //startActivityForResult(intent, REGISTRAR_CODE)
         finish()
+    }
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REGISTRAR_CODE && resultCode == Activity.RESULT_OK) {
+            data?.getParcelableArrayListExtra<Cliente>("list")?.let {
+                usuarios.clear()
+                usuarios.addAll(it)
+            }
+        }
     }
 }

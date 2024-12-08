@@ -134,12 +134,22 @@
         android:id="@+id/buttonRegistrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginEnd="76dp"
         android:backgroundTint="#432895"
         android:text="Registrar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintEnd_toStartOf="@+id/btnRegresar1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintTop_toTopOf="@+id/btnRegresar1" />
+
+    <Button
+        android:id="@+id/btnRegresar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#432895"
+        android:text="@string/regresar"
+        app:layout_constraintStart_toEndOf="@+id/buttonRegistrar"
+        app:layout_constraintTop_toBottomOf="@+id/switchAdmin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

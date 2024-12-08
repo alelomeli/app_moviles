@@ -1,5 +1,6 @@
 package com.example.equis
 
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -20,11 +21,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private var usuarios = ArrayList<Cliente>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        intent.getParcelableArrayListExtra<Cliente>("list")?.let {
+            usuarios.addAll(it)
+        }
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
@@ -84,8 +90,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun logout() {
         getSharedPreferences("MyAppPrefs", MODE_PRIVATE).edit().clear().apply()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
+        val resultIntent = Intent(this, LoginActivity::class.java)
+        resultIntent.putParcelableArrayListExtra("list", usuarios)
+        startActivity(resultIntent)
+        //finish() // Opcional: Esto cierra la actividad actual
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

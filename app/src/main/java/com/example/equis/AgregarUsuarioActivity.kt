@@ -1,5 +1,6 @@
 package com.example.equis
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -17,6 +18,9 @@ class AgregarUsuarioActivity : AppCompatActivity() {
     private lateinit var switchCliente: Switch
     private lateinit var switchAdmin: Switch
     private lateinit var buttonRegistrar: Button
+    private lateinit var regresar : Button
+
+    private var usuarios = ArrayList<Cliente>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,11 @@ class AgregarUsuarioActivity : AppCompatActivity() {
         switchCliente = findViewById(R.id.switchCliente)
         switchAdmin = findViewById(R.id.switchAdmin)
         buttonRegistrar = findViewById(R.id.buttonRegistrar)
+        regresar = findViewById(R.id.btnRegresar1)
+
+        intent.getParcelableArrayListExtra<Cliente>("list")?.let {
+            usuarios.addAll(it)
+        }
 
         switchCliente.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) switchAdmin.isChecked = false
@@ -38,7 +47,19 @@ class AgregarUsuarioActivity : AppCompatActivity() {
             if (isChecked) switchCliente.isChecked = false
         }
 
+        regresar.setOnClickListener{
+            val resultIntent = Intent()
+            resultIntent.putParcelableArrayListExtra("list", usuarios)
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
+        }
+
         buttonRegistrar.setOnClickListener {
+            val id = 0;
+            val fechaInicioMembresia = ""
+            val fechaFinMembresia = ""
+            val asistenciasRegistradas = 0
+            val planMembresia = ""
             val nombre = editTextNombre.text.toString().trim()
             val telefono = editTextTelefono.text.toString().trim()
             val correo = editTextCorreo.text.toString().trim()
@@ -46,10 +67,10 @@ class AgregarUsuarioActivity : AppCompatActivity() {
             val tipoUsuario = if (switchCliente.isChecked) "cliente" else "administrador"
 
             if (nombre.isEmpty() || telefono.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                // Crear el nuevo usuario
-                val newUser = mapOf(
+                val listado = mapOf(
                     "username" to nombre,
                     "password" to contrasena,
                     "userType" to tipoUsuario,
@@ -57,25 +78,28 @@ class AgregarUsuarioActivity : AppCompatActivity() {
                     "correo" to correo
                 )
 
-                // Guardar el usuario en la lista de LoginActivity
-                LoginActivity.userList.add(newUser)
+                val usuario = Cliente(
+                    id,
+                    nombre,
+                    contrasena,
+                    correo,
+                    telefono.toInt(),
+                    tipoUsuario,
+                    fechaInicioMembresia,
+                    fechaFinMembresia,
+                    asistenciasRegistradas,
+                    planMembresia
+                )
+                usuarios.add(usuario)
 
-                // Guardar los datos en SharedPreferences
-                val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-                with(sharedPreferences.edit()) {
-                    putString("username", nombre)
-                    putString("telefono", telefono)
-                    putString("correo", correo)
-                    putString("userType", tipoUsuario)
-                    apply()
-                }
+                LoginActivity.userList.add(listado)
 
-                // Mostrar mensaje de éxito
                 Toast.makeText(this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show()
 
-                // Volver al menú principal
-                finish()
+                //finish()
             }
         }
+
     }
+
 }

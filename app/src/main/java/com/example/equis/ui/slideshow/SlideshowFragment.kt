@@ -1,17 +1,23 @@
 package com.example.equis.ui.slideshow
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.equis.AgregarProductoActivity
+import com.example.equis.R
 import com.example.equis.databinding.FragmentSuplementosBinding
 
 class SlideshowFragment : Fragment() {
 
     private var _binding: FragmentSuplementosBinding? = null
+    private lateinit var btnAgregar : ImageButton
 
     // Esta propiedad es válida solo entre onCreateView y onDestroyView
     private val binding get() = _binding!!
@@ -27,8 +33,23 @@ class SlideshowFragment : Fragment() {
         _binding = FragmentSuplementosBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        btnAgregar = binding.root.findViewById(R.id.btnAgregarSuplemento)
+
         // Configurar clics de productos
         setupProductClickListeners()
+
+        val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+
+        val userType = sharedPreferences.getString("userType", "cliente")
+
+        if (userType == "cliente") {
+            btnAgregar.visibility = View.GONE
+        } else {
+            btnAgregar.setOnClickListener {
+                val intent = Intent(requireContext(), AgregarProductoActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         // Configurar observador de texto si es necesario
         val textView = binding.textSlideshow

@@ -218,6 +218,21 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="Ganador de peso con 1,250 calorías por porción, 50g de proteína y una mezcla de carbohidratos complejos. Ideal para quienes buscan ganar masa muscular rápidamente."
                     android:textColor="#4E148C" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/button_margin"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnAgregarSuplemento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#858AE3"
+                    android:src="@drawable/baseline_add_24" />
             </LinearLayout>
 
         </LinearLayout>
