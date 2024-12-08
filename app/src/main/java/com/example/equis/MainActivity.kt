@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_accesorio,
-                R.id.nav_perfil, R.id.nav_logout
+                R.id.nav_perfil, R.id.nav_logout, R.id.nav_entrenadores
             ),
             drawerLayout
         )
@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                         R.id.nav_slideshow -> navController.navigate(R.id.nav_slideshow)
                         R.id.nav_accesorio -> navController.navigate(R.id.nav_accesorio)
                         R.id.nav_perfil -> navController.navigate(R.id.nav_perfil)
+                        R.id.nav_entrenadores -> navController.navigate(R.id.nav_entrenadores)
                         else -> false
                     }
                     true

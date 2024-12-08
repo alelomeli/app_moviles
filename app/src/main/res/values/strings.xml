@@ -31,6 +31,17 @@
     <string name="comentarios">Comentarios</string>
     <string name="comentario">Comentario</string>
     <string name="estrella">Estrella</string>
+    <string name="entrenadores">Lista de Entrenadores</string>
+    <string name="entrenador">Entrenador</string>
+    <string name="horas">Horas</string>
+    <string name="horario">Horario:</string>
+    <string name="gym">Gimnasio:</string>
+    <string name="gyms">Gimnasios</string>
+    <string name="trainers">Entrenadores</string>
+    <string name="horarioE">Ingrese Horario</string>
+    <string name="gymE">Ingrese Gimnasio</string>
+    <string name="imagen">Ingrese Numero de Imagen</string>
+    <string name="add">Agregar Entrenador</string>
     <string name="ver_rating">Ver Reseñas</string>
     <string name="registrar">Registrar un Producto</string>
     <string name="txtbanda">Bandas elásticas. Herramienta versátil para entrenamientos de resistencia. Ideales para tonificar músculos, mejorar flexibilidad y rehabilitación.</string>

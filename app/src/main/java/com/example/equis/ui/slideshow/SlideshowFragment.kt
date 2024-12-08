@@ -19,7 +19,6 @@ class SlideshowFragment : Fragment() {
     private var _binding: FragmentSuplementosBinding? = null
     private lateinit var btnAgregar : ImageButton
 
-    // Esta propiedad es válida solo entre onCreateView y onDestroyView
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -35,7 +34,6 @@ class SlideshowFragment : Fragment() {
 
         btnAgregar = binding.root.findViewById(R.id.btnAgregarSuplemento)
 
-        // Configurar clics de productos
         setupProductClickListeners()
 
         val sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
@@ -51,7 +49,6 @@ class SlideshowFragment : Fragment() {
             }
         }
 
-        // Configurar observador de texto si es necesario
         val textView = binding.textSlideshow
         slideshowViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it

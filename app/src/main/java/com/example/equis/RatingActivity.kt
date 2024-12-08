@@ -29,14 +29,12 @@ class RatingActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_rating)
 
-        // Inicializar vistas
         ratingBar = findViewById(R.id.rbRating)
         comentario = findViewById(R.id.txtComentarios)
         enviar = findViewById(R.id.btnEnviar)
         regresar = findViewById(R.id.btnRegresar)
         valor = findViewById(R.id.txtValor)
 
-        // Ajustar padding para compatibilidad con sistemas modernos
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -53,17 +51,14 @@ class RatingActivity : AppCompatActivity() {
     }
 
     private fun agregarRating() {
-        // Capturar valores del formulario
         val estrellas = ratingBar.rating
         val comentarioTexto = comentario.text.toString()
 
-        // Validar entrada
         if (comentarioTexto.isBlank()) {
             Toast.makeText(this, "Por favor ingresa un comentario.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Crear nueva reseña
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val fechaActual = dateFormat.format(Date())
         val idUsuario = UUID.randomUUID().hashCode() // Generar ID único para usuario
@@ -71,17 +66,14 @@ class RatingActivity : AppCompatActivity() {
 
         val nuevoRating = Rating(idRating, idUsuario, fechaActual, estrellas.toInt(), comentarioTexto)
 
-        // Agregar la reseña a la lista global
         Rating.listaRatings.add(nuevoRating)
 
-        // Confirmación al usuario
         Toast.makeText(
             this,
             "Reseña agregada: \nEstrellas: $estrellas\nComentario: $comentarioTexto\nFecha: $fechaActual\nID Reseña: $idRating",
             Toast.LENGTH_LONG
         ).show()
 
-        // Limpiar campos
         limpiarCampos()
     }
 
